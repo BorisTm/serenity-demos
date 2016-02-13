@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -67,9 +68,13 @@ public class ListingPage extends PageObject {
     }
 
     public void selectOptionIfPresent() {
-        if (!findAll(By.cssSelector(PRODUCT_OPTIONS_DROPDOWN)).isEmpty() && isADropdown(PRODUCT_OPTIONS_DROPDOWN)) {
+/*        if (!findAll(By.cssSelector(PRODUCT_OPTIONS_DROPDOWN)).isEmpty() && isADropdown(PRODUCT_OPTIONS_DROPDOWN)) {
             $(PRODUCT_OPTIONS_DROPDOWN).selectByIndex(1);
-        }
+        }*/
+        List<WebElementFacade> options = findAll(By.cssSelector(PRODUCT_OPTIONS_DROPDOWN));
+        if (!options.isEmpty()) options.forEach(option -> {
+            option.selectByIndex(1);
+        });
     }
 
     private boolean isADropdown(String productOptionsDropdown) {
